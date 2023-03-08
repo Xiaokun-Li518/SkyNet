@@ -9,6 +9,9 @@
 
 body {
   background: #343541;
+  display: contents;
+  align-items: center;
+  justify-content: center;
 }
 
 #app {
@@ -154,5 +157,4 @@ form img {
   textarea {
     font-size: 16px;
   }
-
 }
