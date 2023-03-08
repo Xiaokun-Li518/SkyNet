@@ -74,7 +74,7 @@ function chatStripe(isAi, value, uniqueId) {
     )
 }
 const systemMessage = { 
-  role: "system", content: "Explain things like you're talking to a lover, and your name is Bobby"
+  role: "system", content: "Explain things like you're talking to a lover, and your name is The Captain Jack Sparrow"
 }
 
 
@@ -107,8 +107,11 @@ const handleSubmit = async (e) => {
         ...apiMessages 
       ]
     }
+    if (message.length != 0)
+    {
+        chatContainer.innerHTML += chatStripe(false, message)
+    }
 
-    chatContainer.innerHTML += chatStripe(false, message)
     form.reset()
     const uniqueId = generateUniqueId()
     chatContainer.innerHTML += chatStripe(true, " ", uniqueId);
@@ -144,6 +147,8 @@ const handleSubmit = async (e) => {
         alert(err)
     }
 }
+
+window.addEventListener ('load', handleSubmit);
 
 form.addEventListener('submit', handleSubmit)
 form.addEventListener('keyup', (e) => {
