@@ -9,9 +9,6 @@
 
 body {
   background: #343541;
-  display: contents;
-  align-items: center;
-  justify-content: center;
 }
 
 #app {
@@ -144,8 +141,11 @@ form img {
 
 /* Media queries for responsive design */
 @media only screen and (max-width: 768px) {
-  body {
+  #app {
     height: 100vh;
+  }
+  body {
+    height: 90vh;
   }
 }
 
