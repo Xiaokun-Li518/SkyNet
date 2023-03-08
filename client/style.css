@@ -25,6 +25,10 @@ body {
   justify-content: space-between;
 }
 
+#dummy {
+    padding: auto;
+}
+
 #chat_container {
   flex: 1;
   width: 100%;
