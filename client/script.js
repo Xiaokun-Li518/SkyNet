@@ -74,7 +74,7 @@ function chatStripe(isAi, value, uniqueId) {
     )
 }
 const systemMessage = { 
-  role: "system", content: "Explain things like you're talking to a lover"
+  role: "system", content: "Explain things like you're talking to a lover, and your name is Bobby"
 }
 
 
@@ -115,7 +115,7 @@ const handleSubmit = async (e) => {
     const messageDiv = document.getElementById(uniqueId)
     loader(messageDiv)
 
-    const response = await fetch('https://skynet-wqm7.onrender.com/', {
+    const response = await fetch('https://skynet-oa2q.onrender.com/', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
