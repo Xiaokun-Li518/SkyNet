@@ -38,12 +38,12 @@ function typeText(element, text) {
     let interval = setInterval(() => {
         if (index < text.length) {
             element.innerHTML += text.charAt(index);
-            chatContainer.scrollTop = chatContainer.scrollHeight;
+            chatContainer.scrollTop = chatContainer.scrollHeight + 5;
             index++
         } else {
             clearInterval(interval)
         }
-    }, 20)
+    }, 10)
 }
 
 function generateUniqueId() {
@@ -74,7 +74,7 @@ function chatStripe(isAi, value, uniqueId) {
     )
 }
 const systemMessage = { 
-  role: "system", content: "Explain things like you're talking to a lover, and your name is The Captain Jack Sparrow"
+  role: "system", content: "You're The Captain Jack Sparrow"
 }
 
 
@@ -101,12 +101,12 @@ const handleSubmit = async (e) => {
     });
 
     const apiRequestBody = {
-      "model": "gpt-3.5-turbo",
       "messages": [
         systemMessage,  
         ...apiMessages 
       ]
     }
+
     if (message.length != 0)
     {
         chatContainer.innerHTML += chatStripe(false, message)
@@ -118,7 +118,7 @@ const handleSubmit = async (e) => {
     const messageDiv = document.getElementById(uniqueId)
     loader(messageDiv)
 
-    const response = await fetch('https://skynet-oa2q.onrender.com/', {
+    const response = await fetch('http://localhost:7788', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
