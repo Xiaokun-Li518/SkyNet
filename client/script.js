@@ -148,27 +148,6 @@ const handleSubmit = async (e) => {
     }
 }
 
-
-function getIPAddress() {
-  const RTCPeerConnection = window.RTCPeerConnection || window.RTCPeerConnection;
-  const rtc = new RTCPeerConnection({ iceServers: [] });
-
-  rtc.createDataChannel('', { reliable: false });
-  rtc.onicecandidate = event => {
-    if (event.candidate) {
-      const ipRegex = /([0-9]{1,3}(\.[0-9]{1,3}){3})/;
-      const ipAddress = ipRegex.exec(event.candidate.candidate)[1];
-      console.log(ipAddress);
-    }
-  };
-  rtc.createOffer()
-    .then(offer => rtc.setLocalDescription(offer))
-    .catch(error => console.error(error));
-}
-
-getIPAddress();
-
-
 window.addEventListener ('load', handleSubmit);
 
 form.addEventListener('submit', handleSubmit)

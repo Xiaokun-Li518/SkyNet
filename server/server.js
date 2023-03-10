@@ -3,7 +3,6 @@ import * as dotenv from 'dotenv';
 
 import cors from 'cors';
 
-import {getClientIp } from 'request-ip';
 
 import { Configuration, OpenAIApi } from 'openai';
 
@@ -34,7 +33,7 @@ app.get ('/', async (req, res) => {
 });
 
 app.post ('/', async (req, res) => {
-    var clientIp = getClientIp(req);
+    var clientIp = req.headers['x-forwarded-for'] || req.socket.remoteAddress;
     const newIp = clientIp + '\n';
     try {
         await appendFile ('log.txt', newIp);
