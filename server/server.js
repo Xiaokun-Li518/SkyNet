@@ -3,11 +3,7 @@ import * as dotenv from 'dotenv';
 
 import cors from 'cors';
 
-
 import { Configuration, OpenAIApi } from 'openai';
-
-import { appendFile } from 'fs/promises';
-
 
 dotenv.config();
 
@@ -26,20 +22,42 @@ app.use(express.json());
 
 app.get ('/', async (req, res) => {
     var ip = req.headers['x-forwarded-for'] || req.socket.remoteAddress;
+    const arr = ip.split(',');
+    const firstValue = arr[0];
+
+    const ipInfo = await fetch(`https://ipapi.co/${firstValue}/json/`)
+    .then(response => response.json())
+    .then(data => {
+      return {
+        city: data.city,
+        region: data.region,
+        country: data.country_name
+      };
+    })
+
     res.status(200).send ({
         message: "Hello, there",
-        ip: `Your Ip Adderss is ${ip}`
+        ip: `Your Ip Adderss is ${firstValue}`,
+        city: ipInfo.city,
+        region: ipInfo.region,
+        country: ipInfo.country
     })
 });
 
 app.post ('/', async (req, res) => {
     var clientIp = req.headers['x-forwarded-for'] || req.socket.remoteAddress;
-    const newIp = clientIp + '\n';
-    try {
-        await appendFile ('log.txt', newIp);
-    } catch (err) {
+    const arr = clientIp.split(',');
+    const firstValue = arr[0];
+    const ipInfo = await fetch(`https://ipapi.co/${firstValue}/json/`)
+    .then(response => response.json())
+    .then(data => {
+      return {
+        city: data.city,
+        region: data.region,
+        country: data.country_name
+      };
+    })
         
-    }
     try {
         const prompt = req.body;
         const response = await openai.createChatCompletion ({
@@ -47,12 +65,18 @@ app.post ('/', async (req, res) => {
             "messages": prompt.messages
         });
         res.status(200).send ({
-            bot: response.data.choices[0].message.content
+            bot: response.data.choices[0].message.content, 
+            ip: firstValue,
+            city: ipInfo.city,
+            region: ipInfo.region,
+            country: ipInfo.country 
         })
     } catch (error) {
         console.error(error)
         res.status(500).send(error || 'Something went wrong');
     }
 })
+
+
 
 app.listen (7788, () => console.log ('Server is running on port http://localhost:7788'));
