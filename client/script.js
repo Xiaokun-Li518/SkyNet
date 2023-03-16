@@ -140,7 +140,7 @@ const handleSubmit = async (e) => {
     } else {
         const err = await response.text()
 
-        messageDiv.innerHTML = "Something went wrong"
+        messageDiv.innerHTML = "Api key removed, access code: https://github.com/Xiaokun-Li518/SkyNet"
         alert(err)
     }
 }
