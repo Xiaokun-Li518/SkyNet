@@ -11,5 +11,8 @@
   },
   "devDependencies": {
     "vite": "^4.1.0"
+  },
+  "dependencies": {
+    "navigo": "^8.11.1"
   }
 }

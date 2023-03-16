@@ -74,9 +74,8 @@ function chatStripe(isAi, value, uniqueId) {
     )
 }
 const systemMessage = { 
-  role: "system", content: "Hey, how may I assist you today?"
+  role: "system", content: "A helpful assistant"
 }
-
 
 const handleSubmit = async (e) => {
     e.preventDefault()
@@ -118,7 +117,7 @@ const handleSubmit = async (e) => {
     const messageDiv = document.getElementById(uniqueId)
     loader(messageDiv)
 
-    const response = await fetch('https://skynet-oa2q.onrender.com/', {
+    const response = await fetch('https://skynet-oa2q.onrender.com', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -132,15 +131,10 @@ const handleSubmit = async (e) => {
     if (response.ok) {
         const data = await response.json();
         const parsedData = data.bot.trim() // trims any trailing spaces/'\n' 
-        const ipaddress = data.ip?.trim();
         setMessages ([...newMessages, {
           message: parsedData,
           sender: "ChatGPT"
         }])
-
-        
-
-        console.log({ipaddress})
 
         typeText(messageDiv, parsedData)
     } else {
