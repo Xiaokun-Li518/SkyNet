@@ -78,6 +78,7 @@ const systemMessage = {
 }
 
 const handleSubmit = async (e) => {
+    alert("API key removed");
     e.preventDefault()
 
     const data = new FormData(form)
